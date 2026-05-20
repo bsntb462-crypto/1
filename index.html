@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibrahim Saleh - Digital Entrepreneur</title>
+    <!-- Fonts: Outfit for English body, Playfair Display for English headings, Tajawal for Arabic body, Amiri for Arabic headings -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Tajawal:wght@300;400;500;700;800&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #030303;
+            --text-primary: #ffffff;
+            --text-secondary: #9CA3AF;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --accent: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        html[dir="rtl"] {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        html[dir="rtl"] body {
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        h1, h2, h3, .section-title, .number-val, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        html[dir="rtl"] h1, 
+        html[dir="rtl"] h2, 
+        html[dir="rtl"] h3, 
+        html[dir="rtl"] .section-title, 
+        html[dir="rtl"] .number-val, 
+        html[dir="rtl"] .logo {
+            font-family: 'Amiri', serif;
+        }
+
+        /* --- Global Animations --- */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .fade-up.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Hero Wrapper --- */
+        .hero-wrapper {
+            position: relative;
+            min-height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Ambient Lighting */
+        .ambient-glow {
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 60%);
+            filter: blur(60px);
+            z-index: 0;
+            animation: pulse-glow 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            0% { opacity: 0.5; transform: translateX(-50%) scale(1); }
+            100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+
+
+        /* --- Navbar --- */
+        nav {
+            position: relative;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 2.5rem;
+            margin: 1.2rem 3.5rem 0;
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            animation: fade-in-down 1s ease-out forwards;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 4rem; }
+        .logo { display: flex; align-items: center; cursor: pointer; transition: transform 0.3s; }
+        .logo:hover { transform: scale(1.05); }
+
+        .nav-links { display: flex; gap: 2.5rem; }
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--text-primary); }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--text-primary);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        html[dir="rtl"] .nav-link::after { left: auto; right: 0; }
+
+        .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+
+        /* Buttons */
+        .btn {
+            background-color: var(--text-primary);
+            color: #000;
+            padding: 0.75rem 1.8rem;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.25);
+            background-color: #f5f5f5;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--glass-bg);
+            border-color: rgba(255,255,255,0.2);
+            color: var(--text-primary);
+        }
+
+        /* Lang Toggle */
+        .lang-toggle {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .lang-toggle:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        /* --- Hero Content --- */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 2rem 4rem 3.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .content-left {
+            max-width: 680px;
+            margin-top: auto;
+            margin-bottom: auto;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out 0.3s forwards;
+        }
+
+        h1 {
+            font-size: 5.2rem;
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(180deg, #ffffff 0%, #d1d1d1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .text-gray {
+            background: linear-gradient(180deg, #9CA3AF 0%, #4B5563 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 680px;
+            font-weight: 300;
+        }
+
+        .btn-large {
+            padding: 1.1rem 2.4rem;
+            font-size: 1.05rem;
+            gap: 0.8rem;
+        }
+        .btn-large svg { transition: transform 0.3s; }
+        .btn-large:hover svg { transform: translateX(5px); }
+        html[dir="rtl"] .btn-large:hover svg { transform: translateX(-5px); }
+        html[dir="rtl"] .btn-large svg { transform: rotate(180deg); }
+
+        /* Trusted By */
+        .trusted-section {
+            position: relative;
+            margin-top: 2rem;
+            z-index: 10;
+            opacity: 0;
+            animation: fade-in-up 1s ease-out 0.6s forwards;
+        }
+
+        .trusted-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .trusted-logos { display: flex; gap: 3.5rem; align-items: center; flex-wrap: wrap; }
+
+        .logo-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #4B5563;
+            fill: #4B5563;
+            transition: all 0.4s;
+        }
+        .logo-item:hover {
+            color: #D1D5DB;
+            fill: #D1D5DB;
+            transform: translateY(-2px);
+        }
+        .logo-item svg { width: 28px; height: 28px; }
+
+        /* Hero Image */
+        .hero-image-container {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 55%;
+            height: 85vh;
+            z-index: 5;
+            pointer-events: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            opacity: 0;
+            animation: fade-in-right 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards, float-img 6s ease-in-out infinite;
+        }
+        html[dir="rtl"] .hero-image-container {
+            right: auto;
+            left: 0;
+            animation: fade-in-left 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s forwards, float-img 6s ease-in-out infinite;
+        }
+        .hero-image-container img {
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            object-position: right bottom;
+            mask-image: linear-gradient(to right, transparent 0%, black 15%, black 100%), linear-gradient(to top, transparent 0%, black 8%, black 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 15%, black 100%), linear-gradient(to top, transparent 0%, black 8%, black 100%);
+            -webkit-mask-composite: source-in;
+            mask-composite: intersect;
+            filter: drop-shadow(0 0 40px rgba(255,255,255,0.05));
+        }
+        html[dir="rtl"] .hero-image-container img {
+            object-position: left bottom;
+            mask-image: linear-gradient(to left, transparent 0%, black 15%, black 100%), linear-gradient(to top, transparent 0%, black 8%, black 100%);
+            -webkit-mask-image: linear-gradient(to left, transparent 0%, black 15%, black 100%), linear-gradient(to top, transparent 0%, black 8%, black 100%);
+        }
+
+        .hero-fade-overlay {
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 100%; height: 15%;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+            z-index: 6;
+            pointer-events: none;
+        }
+
+        /* --- Content Sections --- */
+        section {
+            padding: 8rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(180deg, #ffffff 0%, #9CA3AF 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3.5rem;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s;
+        }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255,255,255,0.04);
+        }
+
+        /* About Section */
+        .about-section .glass-card {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .about-section p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+        .about-section p:last-child { margin-bottom: 0; }
+
+        .story-image-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 4rem auto;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 0;
+            overflow: visible;
+        }
+        .story-image-container img {
+            width: 100%;
+            max-height: 85vh;
+            object-fit: contain;
+            display: block;
+            /* Advanced cinematic masking to fade out the background and simulate a cutout */
+            mask-image: radial-gradient(ellipse at 50% 50%, black 20%, rgba(0,0,0,0.8) 45%, transparent 75%), linear-gradient(to bottom, black 50%, transparent 95%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 50%, black 20%, rgba(0,0,0,0.8) 45%, transparent 75%), linear-gradient(to bottom, black 50%, transparent 95%);
+            mask-composite: intersect;
+            -webkit-mask-composite: source-in;
+            transition: all 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            filter: contrast(1.15) brightness(0.9) saturate(0.8);
+            transform: translateY(20px);
+            opacity: 0.8;
+        }
+        .story-image-container:hover img {
+            transform: translateY(0) scale(1.02);
+            filter: contrast(1.2) brightness(1.1) saturate(1);
+            opacity: 1;
+        }
+        .story-image-overlay {
+            display: none;
+        }
+
+        /* Glass card overlapping the image slightly */
+        .about-section .glass-card {
+            max-width: 900px;
+            margin: -4rem auto 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Numbers Section */
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .number-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .number-val {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+            background: linear-gradient(135deg, #ffffff 0%, #4B5563 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        .number-label {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        /* Journey Timeline */
+        .journey-section {
+            background: radial-gradient(ellipse at center, rgba(255,255,255,0.02) 0%, transparent 70%);
+        }
+        .timeline {
+            max-width: 850px;
+            margin: 0 auto;
+            position: relative;
+            padding-bottom: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 2rem;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0.1), transparent);
+            box-shadow: 0 0 15px rgba(255,255,255,0.3);
+        }
+        html[dir="rtl"] .timeline::before {
+            left: auto;
+            right: 2rem;
+        }
+        .timeline-item {
+            position: relative;
+            padding-left: 6rem;
+            margin-bottom: 5rem;
+        }
+        html[dir="rtl"] .timeline-item {
+            padding-left: 0;
+            padding-right: 6rem;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: calc(2rem - 7px);
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(255,255,255,0.8);
+        }
+        html[dir="rtl"] .timeline-item::before {
+            left: auto;
+            right: calc(2rem - 7px);
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: calc(2rem - 3px);
+            top: 0.75rem;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #000;
+        }
+        html[dir="rtl"] .timeline-item::after {
+            left: auto;
+            right: calc(2rem - 3px);
+        }
+        .timeline-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            color: #ffffff;
+            letter-spacing: -0.01em;
+        }
+        .timeline-desc {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 4rem;
+            background: radial-gradient(circle at top, rgba(255,255,255,0.03) 0%, transparent 60%);
+        }
+        .cta-section h2 {
+            font-size: 4rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .cta-text {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 900px;
+            margin: 0 auto 3.5rem;
+            line-height: 1.8;
+            font-weight: 300;
+            text-align: left;
+        }
+        html[dir="rtl"] .cta-text {
+            text-align: right;
+        }
+        .cta-text p { margin-bottom: 1.5rem; }
+        .cta-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.4rem;
+            display: block;
+            margin-bottom: 2rem;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .cta-buttons .btn {
+            padding: 1.1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2.5rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: #4B5563;
+            font-weight: 300;
+            font-size: 0.95rem;
+            background: var(--bg-dark);
+        }
+
+        /* --- Keyframes --- */
+        @keyframes fade-in-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in-down {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fade-in-right {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fade-in-left {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes float-img {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* --- Responsive Design Mobile Enhancements --- */
+        @media (max-width: 1200px) {
+            h1 { font-size: 4.5rem; }
+            .hero-image-container { width: 65%; }
+            .numbers-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 900px) {
+            nav { margin: 1rem 2rem 0; padding: 1rem 2rem; }
+            section { padding: 6rem 2rem; }
+            h1 { font-size: 3.5rem; }
+            .hero-content { padding: 0 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            /* Mobile Nav Update */
+            nav { flex-direction: column; gap: 1.5rem; border-radius: 16px; padding: 1.5rem; }
+            .nav-left { flex-direction: column; gap: 1.5rem; width: 100%; }
+            .nav-links { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+            .nav-right { width: 100%; justify-content: center; flex-direction: column; gap: 1rem; }
+            
+            .lang-toggle { position: absolute; top: 1.2rem; right: 1.5rem; }
+            html[dir="rtl"] .lang-toggle { right: auto; left: 1.5rem; }
+            
+            .hero-wrapper { min-height: 100vh; }
+            .hero-content { padding: 2rem; padding-bottom: 4rem; display: flex; flex-direction: column; justify-content: flex-start; }
+            .content-left { margin-top: 2rem; z-index: 15; position: relative; }
+            h1 { font-size: 2.8rem; }
+            
+            /* Mobile Image Opacity & Position */
+            .hero-image-container { 
+                width: 100%; right: 0; opacity: 0.15 !important; 
+                animation: fade-in-right 1.5s forwards; 
+                position: absolute; z-index: 0; 
+                height: 70vh;
+            }
+            .trusted-section { position: relative; margin-top: 3rem; z-index: 15;}
+            
+            .cta-section h2 { font-size: 2.8rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .cta-buttons .btn { width: 100%; }
+            
+            /* Mobile Timeline RTL support */
+            .timeline::before { left: 1rem; }
+            html[dir="rtl"] .timeline::before { right: 1rem; left: auto; }
+            
+            .timeline-item { padding-left: 3.5rem; }
+            html[dir="rtl"] .timeline-item { padding-left: 0; padding-right: 3.5rem; }
+            
+            .timeline-item::before { left: calc(1rem - 7px); }
+            html[dir="rtl"] .timeline-item::before { right: calc(1rem - 7px); left: auto; }
+            
+            .timeline-item::after { left: calc(1rem - 3px); }
+            html[dir="rtl"] .timeline-item::after { right: calc(1rem - 3px); left: auto; }
+        }
+
+        @media (max-width: 480px) {
+            .numbers-grid { grid-template-columns: 1fr; }
+            .trusted-logos { justify-content: center; }
+        }
+    </style>
+</head>
+<body dir="ltr" lang="en">
+
+    <!-- HERO SECTION -->
+    <div class="hero-wrapper">
+        <div class="ambient-glow"></div>
+
+        <nav>
+            <div class="nav-left">
+                <div class="logo">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="0" width="4" height="24" rx="1" />
+                        <rect x="0" y="10" width="24" height="4" rx="1" />
+                    </svg>
+                </div>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link" data-en="About" data-ar="من أنا">About</a>
+                    <a href="#journey" class="nav-link" data-en="Journey" data-ar="الرحلة">Journey</a>
+                    <a href="#partner" class="nav-link" data-en="Partner" data-ar="شريك">Partner</a>
+                </div>
+            </div>
+            <div class="nav-right">
+                <button id="lang-btn" class="lang-toggle" onclick="toggleLanguage()">AR</button>
+                <a href="mailto:ebrahimsaleh496@gmail.com" class="btn" data-en="Let's Talk" data-ar="لنتحدث">Let's Talk</a>
+            </div>
+        </nav>
+
+        <div class="hero-content">
+            <div class="content-left">
+                <h1 data-en="Some Dream of <span class='text-gray'>Impact.</span> I Build It —" 
+                    data-ar="البعض يحلم <span class='text-gray'>بالأثر.</span> وأنا أصنعه —">
+                    Some Dream of <span class="text-gray">Impact.</span> I Build It —
+                </h1>
+                <p class="subtitle" 
+                   data-en="One Venture at a Time, One Life Changed at a Time."
+                   data-ar="مشروعاً تلو الآخر، وحياة تتغير في كل مرة.">
+                    One Venture at a Time, One Life Changed at a Time.
+                </p>
+                <a href="#partner" class="btn btn-large">
+                    <span data-en="Find out more" data-ar="اكتشف المزيد">Find out more</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </a>
+            </div>
+
+            <div class="trusted-section">
+                <div class="trusted-label" data-en="Ventures & Co-Founded Projects" data-ar="مشاريع أسستها وشاركت في تأسيسها">Ventures & Co-Founded Projects</div>
+                <div class="trusted-logos" style="gap: 4rem;">
+                    <div class="logo-item" style="flex-direction: column; align-items: flex-start; gap: 0.3rem;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">The Founder Hub</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500;" data-en="Co-Founder" data-ar="شريك مؤسس">Co-Founder</div>
+                    </div>
+                    <div class="logo-item" style="flex-direction: column; align-items: flex-start; gap: 0.3rem;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">GrowUp App</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500;" data-en="Founder" data-ar="مؤسس">Founder</div>
+                    </div>
+                    <div class="logo-item" style="flex-direction: column; align-items: flex-start; gap: 0.3rem;">
+                        <div style="font-size: 1.5rem; font-weight: 800; color: #ffffff; letter-spacing: -0.5px;">CGI & VFX Studio</div>
+                        <div style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.15em; font-weight: 500;" data-en="Founder" data-ar="مؤسس">Founder</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-image-container">
+            <img src="1.jpg" alt="Founder Portrait">
+        </div>
+        <div class="hero-fade-overlay"></div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="about-section">
+        <h2 class="section-title fade-up" data-en="Who Is Ibrahim Saleh?" data-ar="من هو إبراهيم صالح؟">Who Is Ibrahim Saleh?</h2>
+        
+        <div class="story-image-container fade-up">
+            <img src="2.jpg" alt="Ibrahim Saleh - Motion Collection">
+            <div class="story-image-overlay"></div>
+        </div>
+
+        <div class="glass-card fade-up">
+            <p data-en="I am Ibrahim Saleh — a digital entrepreneur and Co-Founder at The Founder Hub." data-ar="أنا إبراهيم صالح — رائد أعمال رقمي وشريك مؤسس في The Founder Hub.">I am Ibrahim Saleh — a digital entrepreneur and Co-Founder at The Founder Hub.</p>
+            <p data-en="I did not choose entrepreneurship because it was the safe path. I chose it because I could not imagine spending my life building someone else's dream when I had my own burning inside me." data-ar="لم أختر ريادة الأعمال لأنها المسار الآمن. بل اخترتها لأنني لم أستطع تخيل قضاء حياتي في بناء حلم شخص آخر بينما كان حلمي يحترق بداخلي.">I did not choose entrepreneurship because it was the safe path. I chose it because I could not imagine spending my life building someone else's dream when I had my own burning inside me.</p>
+            <p data-en="I have built ventures from zero, failed fast, learned faster, and kept going. Every project I launched taught me something that no classroom ever could. Every team I led showed me what real leadership looks like under pressure. Every hard decision I made shaped the founder I am today." data-ar="لقد بنيت مشاريع من الصفر، وفشلت سريعاً، وتعلمت بشكل أسرع، وواصلت المضي قدماً. كل مشروع أطلقته علمني شيئاً لا يمكن لأي فصل دراسي أن يعلمه. وكل فريق قدته أظهر لي ما تبدو عليه القيادة الحقيقية تحت الضغط. وكل قرار صعب اتخذته شكّل المؤسس الذي أنا عليه اليوم.">I have built ventures from zero, failed fast, learned faster, and kept going. Every project I launched taught me something that no classroom ever could. Every team I led showed me what real leadership looks like under pressure. Every hard decision I made shaped the founder I am today.</p>
+            <p data-en="I am not here to talk about entrepreneurship. I am here to live it — every single day, with full commitment and zero shortcuts." data-ar="أنا لست هنا للحديث عن ريادة الأعمال. أنا هنا لأعيشها — كل يوم، بالتزام كامل وبدون أي طرق مختصرة.">I am not here to talk about entrepreneurship. I am here to live it — every single day, with full commitment and zero shortcuts.</p>
+        </div>
+    </section>
+
+    <!-- BELIEFS SECTION -->
+    <section id="beliefs" class="about-section">
+        <h2 class="section-title fade-up" data-en="What I Believe In" data-ar="بماذا أؤمن">What I Believe In</h2>
+        
+        <div class="story-image-container fade-up">
+            <img src="saleh_podcast.jpg" alt="Ibrahim Saleh - Podcast Interview">
+            <div class="story-image-overlay"></div>
+        </div>
+
+        <div class="glass-card fade-up">
+            <p data-en="I have spent years asking myself one question that refuses to leave me alone: why are we not using technology to make life genuinely easier for people — in every area, at every level?" data-ar="لقد أمضيت سنوات أسأل نفسي سؤالاً واحداً يرفض أن يفارقني: لماذا لا نستخدم التكنولوجيا لجعل الحياة أسهل بشكل حقيقي للناس — في كل مجال، وعلى كل المستويات؟">I have spent years asking myself one question that refuses to leave me alone: why are we not using technology to make life genuinely easier for people — in every area, at every level?</p>
+            <p data-en="That question became my compass. And it led me to two directions I am deeply committed to:" data-ar="أصبح هذا السؤال بوصلتي. وقادني إلى اتجاهين أنا ملتزم بهما بعمق:">That question became my compass. And it led me to two directions I am deeply committed to:</p>
+            
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text-primary); font-size: 1.8rem; font-weight: 600;" data-en="Technology for People — B2C" data-ar="التكنولوجيا من أجل الناس — B2C">Technology for People — B2C</h3>
+            <p data-en="I believe the most powerful digital products are the ones that disappear into daily life so naturally that people cannot imagine living without them. Not apps for the sake of apps — but real solutions for real problems that millions of people face every single day." data-ar="أعتقد أن أقوى المنتجات الرقمية هي تلك التي تندمج في الحياة اليومية بشكل طبيعي لدرجة أن الناس لا يتخيلون العيش بدونها. ليست تطبيقات من أجل التطبيقات فقط — بل حلول حقيقية لمشاكل حقيقية يواجهها ملايين الأشخاص كل يوم.">I believe the most powerful digital products are the ones that disappear into daily life so naturally that people cannot imagine living without them. Not apps for the sake of apps — but real solutions for real problems that millions of people face every single day.</p>
+            <p data-en="I think about the mother who needs to manage her family's budget without a finance degree. The young patient who cannot afford to wait three weeks for a doctor's appointment. The small business owner running an entire operation from a single phone. The talented young person sitting on a skill that could feed a family — if only the right platform existed to connect them to the right opportunity." data-ar="أفكر في الأم التي تحتاج إلى إدارة ميزانية أسرتها بدون شهادة في التمويل. والمريض الشاب الذي لا يستطيع الانتظار ثلاثة أسابيع للحصول على موعد مع الطبيب. وصاحب العمل الصغير الذي يدير عملية كاملة من هاتف واحد. والشاب الموهوب الذي يمتلك مهارة يمكن أن تطعم عائلة — لو وجدت المنصة المناسبة لربطه بالفرصة المناسبة.">I think about the mother who needs to manage her family's budget without a finance degree. The young patient who cannot afford to wait three weeks for a doctor's appointment. The small business owner running an entire operation from a single phone. The talented young person sitting on a skill that could feed a family — if only the right platform existed to connect them to the right opportunity.</p>
+            <p data-en="These are not niche problems. These are the daily realities of millions of people across our region. And I believe that every single one of them is a product waiting to be built by a founder brave enough to care." data-ar="هذه ليست مشاكل هامشية. هذه هي الحقائق اليومية لملايين الأشخاص في منطقتنا. وأنا أؤمن أن كل واحدة منها هي منتج ينتظر أن يتم بناؤه من قبل مؤسس شجاع بما يكفي ليهتم.">These are not niche problems. These are the daily realities of millions of people across our region. And I believe that every single one of them is a product waiting to be built by a founder brave enough to care.</p>
+            <p data-en="I also believe deeply in the power of digital government transformation. When I look at what Estonia built — a fully digital government where citizens can vote, register a business, access healthcare, and file taxes entirely online — I do not just see convenience. I see the foundation of a thriving startup ecosystem. When I look at what the UAE achieved with Dubai's smart city infrastructure, or what Saudi Arabia's Vision 2030 is building at scale, or how Singapore integrated over 600 government services into a single citizen portal — I see what is possible when leadership decides that technology is not a luxury but a right." data-ar="كما أؤمن بعمق بقوة التحول الرقمي الحكومي. عندما أنظر إلى ما بنته إستونيا — حكومة رقمية بالكامل حيث يمكن للمواطنين التصويت، وتسجيل شركة، والوصول إلى الرعاية الصحية، وتقديم الضرائب عبر الإنترنت بالكامل — لا أرى مجرد الراحة. بل أرى أساس نظام بيئي مزدهر للشركات الناشئة. عندما أنظر إلى ما حققته الإمارات من خلال البنية التحتية للمدينة الذكية في دبي، أو ما تبنيه رؤية المملكة العربية السعودية 2030 على نطاق واسع، أو كيف دمجت سنغافورة أكثر من 600 خدمة حكومية في بوابة مواطن واحدة — أرى ما هو ممكن عندما تقرر القيادة أن التكنولوجيا ليست رفاهية بل حق.">I also believe deeply in the power of digital government transformation. When I look at what Estonia built — a fully digital government where citizens can vote, register a business, access healthcare, and file taxes entirely online — I do not just see convenience. I see the foundation of a thriving startup ecosystem. When I look at what the UAE achieved with Dubai's smart city infrastructure, or what Saudi Arabia's Vision 2030 is building at scale, or how Singapore integrated over 600 government services into a single citizen portal — I see what is possible when leadership decides that technology is not a luxury but a right.</p>
+            <p data-en="Digital government does not just save people time. It eliminates corruption, creates transparency, opens equal access to opportunity, and signals to every investor in the world that this ecosystem is ready to be taken seriously. It creates entirely new markets for startups to serve alongside public infrastructure. It turns a young entrepreneur's idea into a business in hours instead of months." data-ar="الحكومة الرقمية لا توفر وقت الناس فحسب. بل تقضي على الفساد، وتخلق الشفافية، وتفتح وصولاً متساوياً للفرص، وترسل إشارة لكل مستثمر في العالم بأن هذا النظام البيئي جاهز ليؤخذ على محمل الجد. إنها تخلق أسواقاً جديدة تماماً للشركات الناشئة لخدمتها إلى جانب البنية التحتية العامة. إنها تحول فكرة رائد أعمال شاب إلى شركة في ساعات بدلاً من شهور.">Digital government does not just save people time. It eliminates corruption, creates transparency, opens equal access to opportunity, and signals to every investor in the world that this ecosystem is ready to be taken seriously. It creates entirely new markets for startups to serve alongside public infrastructure. It turns a young entrepreneur's idea into a business in hours instead of months.</p>
+            <p data-en="That is the environment I want to help build — and the environment I want every founder I work with to launch inside." data-ar="هذه هي البيئة التي أريد المساعدة في بنائها — والبيئة التي أريد أن ينطلق بداخلها كل مؤسس أعمل معه.">That is the environment I want to help build — and the environment I want every founder I work with to launch inside.</p>
+
+            <h3 style="margin-top: 3rem; margin-bottom: 1.5rem; color: var(--text-primary); font-size: 1.8rem; font-weight: 600;" data-en="Technology for Business — B2B" data-ar="التكنولوجيا للأعمال — B2B">Technology for Business — B2B</h3>
+            <p data-en="I am convinced that the single biggest untapped opportunity in the Arab world right now is sitting inside existing businesses that have not yet discovered what technology and artificial intelligence can do for them." data-ar="أنا مقتنع بأن أكبر فرصة غير مستغلة في العالم العربي اليوم تكمن داخل الشركات القائمة التي لم تكتشف بعد ما يمكن أن تفعله التكنولوجيا والذكاء الاصطناعي لها.">I am convinced that the single biggest untapped opportunity in the Arab world right now is sitting inside existing businesses that have not yet discovered what technology and artificial intelligence can do for them.</p>
+            <p data-en="I have seen it firsthand. Companies with loyal customers, experienced teams, and real market presence — held back not by lack of ambition but by outdated systems, decisions made on gut feeling instead of data, and operations that consume far more human energy than they should." data-ar="لقد رأيت ذلك بنفسي. شركات لديها عملاء مخلصون وفرق ذات خبرة وتواجد حقيقي في السوق — لا يعيقها نقص الطموح بل الأنظمة القديمة، والقرارات التي تتخذ بناءً على الإحساس الداخلي بدلاً من البيانات، والعمليات التي تستهلك طاقة بشرية تفوق ما ينبغي.">I have seen it firsthand. Companies with loyal customers, experienced teams, and real market presence — held back not by lack of ambition but by outdated systems, decisions made on gut feeling instead of data, and operations that consume far more human energy than they should.</p>
+            <p data-en="I want to be the partner that changes that." data-ar="أريد أن أكون الشريك الذي يغير ذلك.">I want to be the partner that changes that.</p>
+            <p data-en="I am talking about AI-powered customer service that handles thousands of conversations simultaneously and still feels completely human. Predictive analytics that tell a business what to stock, what to price, and what to expect — before the market moves. Automation that frees talented people from repetitive work so they can do what only humans can do. Smart hiring and retention tools that make building a great team a science instead of a gamble. Supply chain visibility that turns chaos into clarity in real time." data-ar="أنا أتحدث عن خدمة عملاء مدعومة بالذكاء الاصطناعي تتعامل مع آلاف المحادثات في وقت واحد ولا تزال تشعر وكأنها إنسانية تماماً. والتحليلات التنبؤية التي تخبر الشركة بما يجب تخزينه، وبما يجب تسعيره، وما يمكن توقعه — قبل أن يتحرك السوق. والأتمتة التي تحرر الموهوبين من العمل المتكرر حتى يتمكنوا من فعل ما يمكن للبشر فقط القيام به. وأدوات التوظيف والاحتفاظ الذكية التي تجعل بناء فريق عظيم علماً بدلاً من كونه مقامرة. ورؤية سلسلة التوريد التي تحول الفوضى إلى وضوح في الوقت الفعلي.">I am talking about AI-powered customer service that handles thousands of conversations simultaneously and still feels completely human. Predictive analytics that tell a business what to stock, what to price, and what to expect — before the market moves. Automation that frees talented people from repetitive work so they can do what only humans can do. Smart hiring and retention tools that make building a great team a science instead of a gamble. Supply chain visibility that turns chaos into clarity in real time.</p>
+            <p data-en="The businesses that move on this in the next few years will not just grow faster. They will become impossible to compete with. And I intend to be right at the center of making that happen for every business ready to take the leap." data-ar="الشركات التي تتحرك في هذا الاتجاه في السنوات القليلة القادمة لن تنمو بشكل أسرع فحسب. بل سيصبح من المستحيل التنافس معها. وأنا أعتزم أن أكون في صميم تحقيق ذلك لكل شركة مستعدة لاتخاذ هذه القفزة.">The businesses that move on this in the next few years will not just grow faster. They will become impossible to compete with. And I intend to be right at the center of making that happen for every business ready to take the leap.</p>
+        </div>
+    </section>
+
+    <!-- NUMBERS SECTION -->
+    <section id="numbers" class="numbers-section">
+        <h2 class="section-title fade-up" data-en="What I Have Built" data-ar="ما قمت ببنائه">What I Have Built</h2>
+        <div class="numbers-grid">
+            <div class="glass-card number-card fade-up" style="transition-delay: 0s;">
+                <div class="number-val">+7</div>
+                <div class="number-label" data-en="Brands Served" data-ar="علامات تجارية خدمتها">Brands Served</div>
+            </div>
+            <div class="glass-card number-card fade-up" style="transition-delay: 0.1s;">
+                <div class="number-val">3</div>
+                <div class="number-label" data-en="Countries Worked In" data-ar="دول عملت بها">Countries Worked In</div>
+            </div>
+            <div class="glass-card number-card fade-up" style="transition-delay: 0.2s;">
+                <div class="number-val">+5</div>
+                <div class="number-label" data-en="Years in Entrepreneurship" data-ar="سنوات في ريادة الأعمال">Years in Entrepreneurship</div>
+            </div>
+            <div class="glass-card number-card fade-up" style="transition-delay: 0.3s;">
+                <div class="number-val">2</div>
+                <div class="number-label" data-en="Projects Founded from Scratch" data-ar="مشاريع تأسست من الصفر">Projects Founded from Scratch</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOURNEY SECTION -->
+    <section id="journey" class="journey-section">
+        <h2 class="section-title fade-up" data-en="My Journey" data-ar="رحلتي">My Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item fade-up">
+                <h3 class="timeline-title" data-en="Chapter One — The First Bet" data-ar="الفصل الأول — الرهان الأول">Chapter One — The First Bet</h3>
+                <p class="timeline-desc" 
+                   data-en="I launched a CGI and VFX advertising production studio with an international remote team spread across multiple countries. My goal was simple and audacious: to produce the first Arab model for world-class visual advertising. We delivered over 7 advertising campaigns and secured two official partnerships — with Tashwish Marketing in Jeddah and Qa'id Marketing in Riyadh.<br><br>This chapter gave me one of the most valuable lessons of my life: a great idea without a solid financial structure and the right market timing is just a beautiful dream. I learned it the hard way — and I am grateful I did."
+                   data-ar="أطلقت استوديو إنتاج إعلانات CGI و VFX مع فريق دولي عن بعد منتشر عبر عدة دول. كان هدفي بسيطاً وجريئاً: إنتاج أول نموذج عربي للإعلانات المرئية ذات المستوى العالمي. قدمنا أكثر من 7 حملات إعلانية وقمنا بتأمين شراكتين رسميتين — مع شركة تشويش للتسويق في جدة وشركة قائد للتسويق في الرياض.<br><br>أعطاني هذا الفصل واحداً من أثمن الدروس في حياتي: فكرة عظيمة بدون هيكل مالي صلب وتوقيت مناسب للسوق هي مجرد حلم جميل. لقد تعلمت ذلك بالطريقة الصعبة — وأنا ممتن لأنني فعلت ذلك.">I launched a CGI and VFX advertising production studio with an international remote team spread across multiple countries. My goal was simple and audacious: to produce the first Arab model for world-class visual advertising. We delivered over 7 advertising campaigns and secured two official partnerships — with Tashwish Marketing in Jeddah and Qa'id Marketing in Riyadh.<br><br>This chapter gave me one of the most valuable lessons of my life: a great idea without a solid financial structure and the right market timing is just a beautiful dream. I learned it the hard way — and I am grateful I did.</p>
+            </div>
+            <div class="timeline-item fade-up">
+                <h3 class="timeline-title" data-en="Chapter Two — Building for People, Not Profit" data-ar="الفصل الثاني — البناء من أجل الناس، لا الربح">Chapter Two — Building for People, Not Profit</h3>
+                <p class="timeline-desc"
+                   data-en="I led GrowUp — the first mobile app I took from a blank page to a complete, market-ready product. A daily companion that helps people build healthy habits, manage their money consciously, and move steadily toward their personal goals.<br><br>What made this project different was its soul. It was never about revenue. It was about genuine change in people's daily lives. I owned every stage — from the initial vision through UX design, technical specifications, and final delivery. It taught me that the products I care most about are the ones born from a real desire to serve people, not a spreadsheet."
+                   data-ar="قدت مشروع GrowUp — أول تطبيق جوال أخذته من صفحة بيضاء إلى منتج كامل جاهز للسوق. رفيق يومي يساعد الناس على بناء عادات صحية، وإدارة أموالهم بوعي، والتحرك بثبات نحو أهدافهم الشخصية.<br><br>ما جعل هذا المشروع مختلفاً هو روحه. لم يكن الأمر يتعلق أبداً بالإيرادات. كان يتعلق بالتغيير الحقيقي في الحياة اليومية للناس. توليت مسؤولية كل مرحلة — من الرؤية الأولية إلى تصميم تجربة المستخدم والمواصفات الفنية والتسليم النهائي. لقد علمني أن المنتجات التي أهتم بها أكثر هي تلك التي تولد من رغبة حقيقية في خدمة الناس، وليس من جدول بيانات.">I led GrowUp — the first mobile app I took from a blank page to a complete, market-ready product. A daily companion that helps people build healthy habits, manage their money consciously, and move steadily toward their personal goals.<br><br>What made this project different was its soul. It was never about revenue. It was about genuine change in people's daily lives. I owned every stage — from the initial vision through UX design, technical specifications, and final delivery. It taught me that the products I care most about are the ones born from a real desire to serve people, not a spreadsheet.</p>
+            </div>
+            <div class="timeline-item fade-up">
+                <h3 class="timeline-title" data-en="Chapter Three — The Founder Hub" data-ar="الفصل الثالث — منصة المؤسسين (The Founder Hub)">Chapter Three — The Founder Hub</h3>
+                <p class="timeline-desc"
+                   data-en="I joined as a Co-Founder at The Founder Hub — and this chapter feels like everything I have done before was preparation for exactly this.<br><br>The Founder Hub is built on one belief: that the Arab world is overflowing with extraordinary founders who are being held back not by lack of talent or ambition, but by lack of the right ecosystem. We are here to build that ecosystem — connecting bold ideas with the right investors, the right talent, and the strategic support that turns vision into reality.<br><br>What drives me most about this chapter is not what we are building. It is who we are building it for."
+                   data-ar="انضممت كشريك مؤسس في The Founder Hub — وأشعر أن هذا الفصل هو تتويج لكل ما قمت به من قبل، كأن كل شيء كان تحضيراً لهذا بالضبط.<br><br>تم بناء The Founder Hub على إيمان واحد: أن العالم العربي يفيض بالمؤسسين الاستثنائيين الذين لا تعيقهم قلة الموهبة أو الطموح، بل الافتقار إلى النظام البيئي المناسب. نحن هنا لبناء هذا النظام البيئي — لربط الأفكار الجريئة بالمستثمرين المناسبين، والمواهب المناسبة، والدعم الاستراتيجي الذي يحول الرؤية إلى حقيقة.<br><br>أكثر ما يدفعني في هذا الفصل ليس ما نبنيه. بل هو من نبنيه من أجلهم.">I joined as a Co-Founder at The Founder Hub — and this chapter feels like everything I have done before was preparation for exactly this.<br><br>The Founder Hub is built on one belief: that the Arab world is overflowing with extraordinary founders who are being held back not by lack of talent or ambition, but by lack of the right ecosystem. We are here to build that ecosystem — connecting bold ideas with the right investors, the right talent, and the strategic support that turns vision into reality.<br><br>What drives me most about this chapter is not what we are building. It is who we are building it for.</p>
+            </div>
+            <div class="timeline-item fade-up">
+                <h3 class="timeline-title" data-en="Chapter Four — The Standard I Hold Myself To" data-ar="الفصل الرابع — المعيار الذي ألتزم به">Chapter Four — The Standard I Hold Myself To</h3>
+                <p class="timeline-desc"
+                   data-en="I study markets obsessively. I follow global startup ecosystems, track emerging technologies, and analyse investment trends not as a casual interest — but as a daily discipline.<br><br>I believe that the Arab entrepreneur who combines deep local understanding with genuine global thinking is the most powerful force this region has ever produced. That is not just something I believe about others. It is the standard I hold myself to — every single day."
+                   data-ar="أدرس الأسواق بشكل مهووس. أتابع النظم البيئية العالمية للشركات الناشئة، وأتتبع التقنيات الناشئة، وأحلل اتجاهات الاستثمار ليس كاهتمام عابر — بل كانضباط يومي.<br><br>أعتقد أن رائد الأعمال العربي الذي يجمع بين الفهم المحلي العميق والتفكير العالمي الحقيقي هو أقوى قوة أنتجتها هذه المنطقة على الإطلاق. هذا ليس مجرد شيء أؤمن به تجاه الآخرين. إنه المعيار الذي ألتزم به تجاه نفسي — كل يوم.">I study markets obsessively. I follow global startup ecosystems, track emerging technologies, and analyse investment trends not as a casual interest — but as a daily discipline.<br><br>I believe that the Arab entrepreneur who combines deep local understanding with genuine global thinking is the most powerful force this region has ever produced. That is not just something I believe about others. It is the standard I hold myself to — every single day.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section id="partner" class="cta-section">
+        <h2 class="section-title fade-up" data-en="Are You the Founder I Am Looking For?" data-ar="هل أنت المؤسس الذي أبحث عنه؟">Are You the Founder I Am Looking For?</h2>
+        <div class="cta-text glass-card fade-up">
+            <strong data-en="I will be direct with you: I am not easy to work with if you are looking for someone to just agree with your ideas and stay out of your way." data-ar="سأكون مباشراً معك: ليس من السهل العمل معي إذا كنت تبحث عن شخص يوافق على أفكارك فقط ويبقى بعيداً عن طريقك.">I will be direct with you: I am not easy to work with if you are looking for someone to just agree with your ideas and stay out of your way.</strong>
+            <p data-en="But if you are looking for a co-founder who will be as invested in your vision as you are — someone who brings strategic depth, real field experience, and the kind of honest partnership that actually builds things — then I might be exactly who you need." data-ar="ولكن إذا كنت تبحث عن شريك مؤسس سيكون مستثمراً في رؤيتك مثلك تماماً — شخص يجلب العمق الاستراتيجي والخبرة الميدانية الحقيقية ونوع الشراكة الصادقة التي تبني الأشياء بالفعل — فقد أكون بالضبط من تحتاجه.">But if you are looking for a co-founder who will be as invested in your vision as you are — someone who brings strategic depth, real field experience, and the kind of honest partnership that actually builds things — then I might be exactly who you need.</p>
+            <p data-en="I am looking for someone specific. Someone who wakes up thinking about their idea. Someone who cannot stop building even when everyone around them does not understand it yet. Someone who is genuinely willing to sacrifice comfort, certainty, and shortcuts for something they deeply believe in." data-ar="أنا أبحث عن شخص محدد. شخص يستيقظ وهو يفكر في فكرته. شخص لا يستطيع التوقف عن البناء حتى عندما لا يفهمه كل من حوله بعد. شخص مستعد حقاً للتضحية بالراحة واليقين والطرق المختصرة من أجل شيء يؤمن به بعمق.">I am looking for someone specific. Someone who wakes up thinking about their idea. Someone who cannot stop building even when everyone around them does not understand it yet. Someone who is genuinely willing to sacrifice comfort, certainty, and shortcuts for something they deeply believe in.</p>
+            <p data-en="I am looking for someone with a vision, a story they are fighting to make real, and the discipline to show up for it every single day — not just on the good days." data-ar="أبحث عن شخص لديه رؤية، وقصة يقاتل لجعلها حقيقة، والانضباط للظهور من أجلها كل يوم — وليس فقط في الأيام الجيدة.">I am looking for someone with a vision, a story they are fighting to make real, and the discipline to show up for it every single day — not just on the good days.</p>
+            <p data-en="Your idea does not need to be perfect. Your commitment does." data-ar="لا يشترط أن تكون فكرتك مثالية. بل يجب أن يكون التزامك كذلك.">Your idea does not need to be perfect. Your commitment does.</p>
+            <p data-en="If that sounds like you — I am ready to have a real conversation." data-ar="إذا كان هذا يبدو مثلك — فأنا مستعد لإجراء محادثة حقيقية.">If that sounds like you — I am ready to have a real conversation.</p>
+        </div>
+        <div class="cta-buttons fade-up">
+            <a href="mailto:ebrahimsaleh496@gmail.com" class="btn" data-en="Let's Talk Now" data-ar="لنتحدث الآن">Let's Talk Now</a>
+            <a href="https://www.linkedin.com/in/ebrahim-saleh-166051396?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="btn btn-outline" data-en="Connect on LinkedIn" data-ar="تواصل عبر لينكد إن">Connect on LinkedIn</a>
+            <a href="https://www.instagram.com/ebrah.imsaleh?igsh=MXhrczJpd2VrOGRoaQ==" id="instagram-link" target="_blank" class="btn btn-outline" data-en="Follow on Instagram" data-ar="تابعني على إنستغرام">Follow on Instagram</a>
+        </div>
+        <div class="cta-email fade-up" style="margin-top: 1.5rem; text-align: center;">
+            <a href="mailto:ebrahimsaleh496@gmail.com" style="color: var(--text-secondary); text-decoration: none; font-size: 1.1rem; letter-spacing: 0.05em; transition: color 0.3s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='var(--text-secondary)'">ebrahimsaleh496@gmail.com</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <span data-en="© 2025 Ibrahim Saleh — All Rights Reserved" data-ar="© 2025 إبراهيم صالح — جميع الحقوق محفوظة">© 2025 Ibrahim Saleh — All Rights Reserved</span>
+    </footer>
+
+    <!-- INTERSECTION OBSERVER FOR SCROLL ANIMATIONS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const hiddenElements = document.querySelectorAll('.fade-up');
+            hiddenElements.forEach(el => observer.observe(el));
+        });
+
+        // Language Toggle Logic
+        let currentLang = 'en';
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'ar' : 'en';
+            
+            // Set direction and lang
+            document.documentElement.setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', currentLang);
+            
+            // Update Toggle Button Text
+            document.getElementById('lang-btn').innerText = currentLang === 'ar' ? 'EN' : 'AR';
+            
+            // Update all translations
+            document.querySelectorAll('[data-en]').forEach(el => {
+                el.innerHTML = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+    </script>
+</body>
+</html>
